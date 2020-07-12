@@ -100,7 +100,7 @@ del Test_data["offerType"]
 
 # =========================
 # 2.3.5 了解预测值的分布
-Train_data['price'] #print()
+print(Train_data['price']) #print()
 Train_data['price'].value_counts()
 
 ## 1) 总体分布概况（无界约翰逊分布等）
@@ -164,9 +164,9 @@ for cat_fea in categorical_features:
 
 
 # %
-    # 2.3.7 数字特征分析
-    numeric_features.append('price')
-    Train_data.head()
+# 2.3.7 数字特征分析
+numeric_features.append('price')
+print(Train_data.head())
 
 ## 1) 相关性分析
 price_numeric = Train_data[numeric_features]
@@ -232,11 +232,15 @@ sns.regplot(x='v_14',y = 'price',data = v_14_scatter_plot,scatter= True, fit_reg
 v_13_scatter_plot = pd.concat([Y_train,Train_data['v_13']],axis = 1)
 sns.regplot(x='v_13',y = 'price',data = v_13_scatter_plot,scatter= True, fit_reg=True, ax=ax10)
 
+
+
+
 # 2.3.8 类别特征分析
 ## 1) unique分布
 for fea in categorical_features:
     print(Train_data[fea].nunique())
-    ## 2) 类别特征箱形图可视化
+
+## 2) 类别特征箱形图可视化
 
 # 因为 name和 regionCode的类别太稀疏了，这里我们把不稀疏的几类画一下
 categorical_features = ['model',

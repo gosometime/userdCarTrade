@@ -23,15 +23,5 @@ if __name__ == '__main__':
     Test_data = pd.read_csv(testDataPath, sep=' ')
 
     da = dataAnalysis(Train_data,Test_data)
-    #da.printDfInfo()
-
-    # nan可视化
-    plt.figure()
-    missing = Train_data.isnull().sum()
-    missing = missing[missing > 0]
-    missing.sort_values(inplace=True)
-    #dataFrame plot ---> 如何画图出来？
-    plt.show(missing.plot.bar())
-    # 可视化看下缺省值
-    msno.matrix(Train_data.sample(250))
-    plt.show()
+    da.printInfo()
+    da.missingDataStat()

@@ -1,41 +1,36 @@
 from baseparams import baseParams
+import matplotlib.pyplot as plt
+import missingno as msno
+from analysisFunctions import analysisFuns
 
-
-class dataAnalysis(baseParams):
+class dataAnalysis(analysisFuns):
     def __init__(self,Train_data,Test_data):
         super().__init__()
         self.Train_data = Train_data
         self.Test_data = Test_data
+        self.colList = Train_data.columns
 
-    def printDfInfo(self):
-        ## 2) 简略观察数据(head()+shape)
-        print('******* shape ******')
-        print('train data shape:',self.Train_data.shape)
-        print('test data shape:',self.Test_data.shape)
+        # col name list
+        self.numeric_features = None
+        self.categorical_features = None
+    #
+    def printInfo(self):
+        self.pinrtDfInfo(self.Train_data,b_train=True)
+        self.pinrtDfInfo(self.Test_data,b_train=False)
 
+
+    def missingDataStat(self):
         print()
-        print('*******  head and tail  *******')
-        trainData_head_tail = self.Train_data.head().append(self.Train_data.tail())
-        print('----- train data head and tail ----')
-        print(trainData_head_tail)
-        print()
-        print('----- test data head and tail ----')
-        testData_head_tail = self.Test_data.head().append(self.Test_data.tail())
-        print(testData_head_tail)
-        ## 1) 通过describe()来熟悉数据的相关统计量
-        print()
-        print('******* describe *******')
-        print('Train data descirbe:')
-        print(self.Train_data.describe())
-        print()
-        print('Test data descirbe:')
-        print(self.Test_data.describe())
-        ## 2) 通过info()来熟悉数据类型
-        print('******* data info *******')
-        print()
-        print('self.Train_data.info:')
-        print(self.Train_data.info())
-        print()
-        print('self.Test_data info:')
-        print(self.Test_data.info())
+        print('*' * 7 + ' nan info of each col ' + '*' * 7)
+        self.missingDataInfo(self.Train_data,b_train=True)
+        self.missingDataInfo(self.Test_data,b_train=False)
+
+    def labelDistribution(self):
+        self.colDataDistribution(self.Train_data[self.colList[-1]])
+
+    def getFeatureList(self,numFeatList,catFeatList):
+        self.numeric_features = numFeatList
+        self.categorical_features = catFeatList
+
+
 
